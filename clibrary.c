@@ -160,7 +160,7 @@ char letra_correspondente(mpz_t index){
 }
 
 char *chavePublica(char *p_string,char *q_string, char *e_string){
-
+    printf("%s %s %s", p_string, q_string,e_string);
     //Declarando as variáveis mpz
     mpz_t p,q,e,n;
     mpz_inits(p, q,e,n, NULL);

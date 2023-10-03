@@ -12,41 +12,44 @@ def home():
     return'API Em Funcionamento!'
 
 #Contruir Funcionalidades 
-@app.route('/chavepublica')
+@app.route('/chavepublica/<string:p>/<string:q>/<string:e>')
 
-def gerarChave():
+def gerarChave(p, q, e):
+   
+
     key = clibrary.chavePublica
-    
-
     key.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
     key.restype = ctypes.c_char_p
-    response_chave = {'Chave_Publica': f'{key(b"113", b"131", b"163")}'}
-    #
+    response = key(p.encode(), q.encode(), e.encode()).decode('utf-8')
+    
+    response_chave = {'Chave_Publica': f'{response}'}
+    
 
     return jsonify(response_chave)
       
 
 
-@app.route('/encriptar')
+@app.route('/encriptar/<string:msg_pura>/<string:n>/<string:e>')
 
-def encriptar():
+def encriptar(msg_pura, n, e):
     encript = clibrary.encriptar
 
     encript.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
     encript.restype = ctypes.c_char_p
-    response_encriptar = {'Mensagem_Encriptada': f'{encript(b"Josue Medino da Silva ", b"14803", b"163")}'}
-    #
+    response_E = encript(msg_pura.encode(), n.encode(), e.encode()).decode('utf-8')
+    response_encriptar = {'Mensagem_Encriptada': f'{response_E}'}
+    
 
     return jsonify(response_encriptar)
 
-@app.route('/desencriptar')
+@app.route('/desencriptar/<string:p>/<string:q>/<string:e>/<string:msg_encriptada>')
     
-def desencriptar():
+def desencriptar(p, q, e, msg_encriptada):
     desencript = clibrary.desencriptar
-   
     desencript.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
     desencript.restype = ctypes.c_char_p
-    response_desencriptar ={ 'Mensagem_Desencriptada': f'{desencript(b"113", b"131", b"163", b"8542 4015 2878 11171 9850 10630 5157 9850 5754 5707 9851 4015 10630 5754 4377 10630 10852 5707 6977 14267 4377 ")}'}
+    response_D = desencript(p.encode(), q.encode(), e.encode(), msg_encriptada.encode()).decode('utf-8')
+    response_desencriptar ={ 'Mensagem_Desencriptada': f'{response_D}'}
    
     return jsonify(response_desencriptar)
 
