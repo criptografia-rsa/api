@@ -3,10 +3,6 @@
 #include <gmp.h>
 #include <string.h>
 
-char* hello(char* name, int age){
-    printf("My name is %s and i am %d years old\n", name, age);
-    return "Ola" ;
-}
 
 int preCodificar(char letra){
     //Declarando nossa referência da ACSII | Intervalo : 32-126
